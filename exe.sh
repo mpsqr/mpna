@@ -1,5 +1,5 @@
 #!/bin/bash
 
-gcc src/main.c -o main
+make
 
-./main $0
+./bin/main $0

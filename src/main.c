@@ -44,11 +44,17 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < N*N; i++) {
 		b[i] = rand() % MAX;
 	}
-	
+
+	int *x = (int *)malloc(sizeof(int) * (N*N));
+	memset(x, 0, N*N);
+	for (int i = 0; i < N*N; i++) printf("%d\n", x[i]);	
+
+
 	free(row);
 	free(col);
 	free(nnz);
 	free(b);
+	free(x);
 
 	return EXIT_SUCCESS;
 }

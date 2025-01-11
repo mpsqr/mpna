@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "utilitary.h"
 	/*
  		Matéo Pasquier
 		MPNA
@@ -19,15 +21,18 @@ int main(int argc, char **argv) {
 	}	
 
 
-
-
-
 	N = atoi(argv[1]);
-	int size = N * N;
 
-	printf("Total size: %d\n", size);
+	int *row = (int *)malloc(sizeof(int) * (N + 1));	
 
+	int totalElements = numOfElements(N);
+	printf("%d\n", totalElements);
 
+	for (int i = 0; i < N; ++i) {
+		for (int j = 0; j < N; ++j) {
+			
+		}
+	}
 
 
 

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 make
-./bin/main $0
+./bin/main $1

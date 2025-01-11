@@ -1,2 +1,0 @@
-
-int numOfElements(int);

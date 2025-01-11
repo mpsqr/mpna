@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "utilitary.h"
+#include "sparseUtilitary.h"
 	/*
  		Matéo Pasquier
 		MPNA
@@ -22,19 +22,27 @@ int main(int argc, char **argv) {
 
 
 	N = atoi(argv[1]);
-
-	int *row = (int *)malloc(sizeof(int) * (N + 1));	
-
-	int totalElements = numOfElements(N);
-	printf("%d\n", totalElements);
-
-	for (int i = 0; i < N; ++i) {
-		for (int j = 0; j < N; ++j) {
-			
-		}
+	if (N < 1) {
+		printf("N should be > 0.\n");
+		return EXIT_FAILURE;
 	}
 
 
+	int totalElem = numOfElements(N); // Non zero elements
+
+	// Allocating resources for the CSR matrix
+	int *row = (int *)malloc(sizeof(int) * ((N*N) + 1));
+	int *col = (int *)malloc(sizeof(int) * totalElem);
+	int *nnz = (int *)malloc(sizeof(int) * totalElem);
+
+	// Fill the sparse matrix with the kernel
+	fillSparseMatrix(row, col, nnz, N);
+	
+		
+	
+	free(row);
+	free(col);
+	free(nnz);	
 
 	return EXIT_SUCCESS;
 }

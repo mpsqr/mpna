@@ -7,7 +7,7 @@
 #include "Jacobi.h"
 #include "GaussSeidel.h"
 
-#define MAX 10
+#define MAX 100
 	/*
  		Matéo Pasquier
 		MPNA
@@ -60,11 +60,11 @@ int main(int argc, char **argv) {
 	// Solvers
 	
 	JacobiCSR(row, col, nnz, b, xJacobi, N*N);
-	printVec(xJacobi, N*N);
+	//printVec(xJacobi, N*N);
 	
 
 	gaussSeidelCSR(row, col, nnz, b, xGS, N*N);
-	printVec(xGS, N*N);
+	//printVec(xGS, N*N);
 
 
 	printf("The total difference between Jacobi and GS is %f.\n", compareVec(xJacobi, xGS, N*N));	

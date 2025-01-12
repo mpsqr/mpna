@@ -1,3 +1,3 @@
 
 int numOfElements(int);
-void fillSparseMatrix(int*, int*, int*, int);
+void fillSparseMatrix(int*, int*, double*, int);

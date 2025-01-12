@@ -18,7 +18,7 @@ int numOfElements(int N) {
 
 
 
-void fillSparseMatrix(int *row, int *col, int *nnz, int N) {
+void fillSparseMatrix(int *row, int *col, double *nnz, int N) {
 	
 	printf("Filling the sparse matrix with the kernel...\n");
 
@@ -30,30 +30,30 @@ void fillSparseMatrix(int *row, int *col, int *nnz, int N) {
 		int j = iter % N;
 
 		if (i > 0) { // Top point
-			nnz[totalElem] = -1;
+			nnz[totalElem] = -1.0;
 			col[totalElem] = iter-N;
 			totalElem++;
 		}
 		if (j > 0) { // Left point
-			nnz[totalElem] = -1;
+			nnz[totalElem] = -1.0;
 			col[totalElem] = iter-1;
 			totalElem++; 
 		}
 		
 
 		// Self point
-		nnz[totalElem] = 4;
+		nnz[totalElem] = 4.0;
 		col[totalElem] = iter;
 		totalElem++;
 		
 		if (j < N-1) { // Right point
-			nnz[totalElem] = -1;
+			nnz[totalElem] = -1.0;
 			col[totalElem] = iter+1;
 			totalElem++;
 		}
 		
 		if (i < N-1) { // Bottom point
-			nnz[totalElem] = -1;
+			nnz[totalElem] = -1.0;
 			col[totalElem] = iter+N;
 			totalElem++;
 		}

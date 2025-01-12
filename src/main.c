@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "utilitary.h"
 #include "sparseUtilitary.h"
 #include "Jacobi.h"
+
 
 #define MAX 10
 	/*
@@ -36,22 +38,29 @@ int main(int argc, char **argv) {
 	// Allocating resources for the CSR matrix
 	int *row = (int *)malloc(sizeof(int) * ((N*N) + 1));
 	int *col = (int *)malloc(sizeof(int) * totalElem);
-	int *nnz = (int *)malloc(sizeof(int) * totalElem);
+	double *nnz = (double *)malloc(sizeof(double) * totalElem);
 
 	// Fill the sparse matrix with the kernel
 	fillSparseMatrix(row, col, nnz, N);
-	
-	int *b = (int *)malloc(sizeof(int) * (N*N));
+
+	// Fill b with random values	
+	double *b = (double *)malloc(sizeof(double) * (N*N));
 	for (int i = 0; i < N*N; i++) {
-		b[i] = rand() % MAX;
+		b[i] = (double)(rand() % MAX);
 	}
 
-	int *x = (int *)malloc(sizeof(int) * (N*N));
-	memset(x, 0, N*N);
+	// x vector is initially set to 0
+	double *x = (double *)malloc(sizeof(double) * (N*N));
+	memset(x, 0.0, N*N);
+
+
 		
 	JacobiCSR(row, col, nnz, b, x, N*N);
-
+	printVec(x, N*N);
 	
+
+
+
 	free(row);
 	free(col);
 	free(nnz);

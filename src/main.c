@@ -3,6 +3,9 @@
 #include <string.h>
 
 #include "sparseUtilitary.h"
+#include "Jacobi.h"
+
+#define MAX 10
 	/*
  		Matéo Pasquier
 		MPNA
@@ -10,7 +13,6 @@
 		Compilation gcc main.c -o main
 	*/
 
-#define MAX 10
 
 int N;
 
@@ -27,8 +29,7 @@ int main(int argc, char **argv) {
 		printf("N should be > 0.\n");
 		return EXIT_FAILURE;
 	}
-	
-	srand(0);
+
 
 	int totalElem = numOfElements(N); // Non zero elements
 
@@ -40,21 +41,22 @@ int main(int argc, char **argv) {
 	// Fill the sparse matrix with the kernel
 	fillSparseMatrix(row, col, nnz, N);
 	
-	int *b = (int *)malloc(sizeof(int) * (N*N));	
+	int *b = (int *)malloc(sizeof(int) * (N*N));
 	for (int i = 0; i < N*N; i++) {
 		b[i] = rand() % MAX;
 	}
 
 	int *x = (int *)malloc(sizeof(int) * (N*N));
 	memset(x, 0, N*N);
-	for (int i = 0; i < N*N; i++) printf("%d\n", x[i]);	
+		
+	JacobiCSR(row, col, nnz, b, x, N*N);
 
-
+	
 	free(row);
 	free(col);
 	free(nnz);
 	free(b);
-	free(x);
+	free(x);	
 
 	return EXIT_SUCCESS;
 }

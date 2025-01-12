@@ -5,7 +5,7 @@
 #include "utilitary.h"
 #include "sparseUtilitary.h"
 #include "Jacobi.h"
-
+#include "GaussSeidel.h"
 
 #define MAX 10
 	/*
@@ -50,22 +50,33 @@ int main(int argc, char **argv) {
 	}
 
 	// x vector is initially set to 0
-	double *x = (double *)malloc(sizeof(double) * (N*N));
-	memset(x, 0.0, N*N);
+	double *xJacobi = (double *)malloc(sizeof(double) * (N*N));
+	memset(xJacobi, 0.0, N*N);
+	
+	double *xGS = (double *)malloc(sizeof(double) * (N*N));
+	memset(xGS, 0.0, N*N);
 
 
-		
-	JacobiCSR(row, col, nnz, b, x, N*N);
-	printVec(x, N*N);
+	// Solvers
+	
+	JacobiCSR(row, col, nnz, b, xJacobi, N*N);
+	printVec(xJacobi, N*N);
 	
 
+	gaussSeidelCSR(row, col, nnz, b, xGS, N*N);
+	printVec(xGS, N*N);
 
 
+	printf("The total difference between Jacobi and GS is %f.\n", compareVec(xJacobi, xGS, N*N));	
+
+
+	// Free the memory
 	free(row);
 	free(col);
 	free(nnz);
 	free(b);
-	free(x);	
+	free(xJacobi);
+	free(xGS);	
 
 	return EXIT_SUCCESS;
 }

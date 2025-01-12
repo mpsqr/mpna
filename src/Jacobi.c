@@ -36,19 +36,20 @@ void JacobiCSR(int *row, int *col, double *nnz, double *b, double *x, int N) {
 			newX[i] = (b[i] - sum) / diag[i];
 		}
 
-		double maxDiff = 0.0;
+		double maxError = 0.0;
 		for (int i = 0; i < N; i++) {
-			maxDiff = max(maxDiff, fabs(newX[i] - x[i]));
+			maxError = max(maxError, fabs(newX[i] - x[i]));
 			x[i] = newX[i];
 		}
 
 		// Check for convergence
-		if (maxDiff < TOL) {
+		if (maxError < TOL) {
 			printf("Jacobi converged in %d iterations.\n", iter+1);
 			break;
 		}
 	}
 
+		
 
 	free(newX);
 	free(diag);

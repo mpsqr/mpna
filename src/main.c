@@ -11,8 +11,8 @@
 	/*
  		Matéo Pasquier
 		MPNA
-		Usage: <N> matrix size
-		Compilation gcc main.c -o main
+		Usage: <N> matrix size <seed> seed for the randomizer
+		Compilation: make -> ./bin/main N seed
 	*/
 
 
@@ -21,7 +21,7 @@ int N;
 int main(int argc, char **argv) {
 
 	if (argc < 2) {
-		printf("Usage: <N>\n");
+		printf("Usage: <N> <seed>\n");
 		return EXIT_FAILURE;
 	}	
 
@@ -32,7 +32,10 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
-
+	if (argc > 2) {
+		srand(atoi(argv[2]));
+	}
+	
 	int totalElem = numOfElements(N); // Non zero elements
 
 	// Allocating resources for the CSR matrix

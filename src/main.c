@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 	//printVec(xGS, N*N);
 
 
-	printf("The total difference between Jacobi and GS is %f.\n", compareVec(xJacobi, xGS, N*N));	
+	//printf("The total difference between Jacobi and GS is %f.\n", compareVec(xJacobi, xGS, N*N));	
 
 
 	// Free the memory

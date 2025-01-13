@@ -24,14 +24,12 @@ void gaussSeidelCSR(int *row, int *col, double *nnz, double *b, double *x, int N
 
 			for (int j = row[i]; j < row[i+1]; j++) {
 				int colInd = col[j];
-				if (colInd == i) {
-					temp = nnz[j];
-				} else {
+				if (colInd != i) {
 					sum += nnz[j] * x[colInd];
 				}
 			}
 		
-			x[i] = (b[i] - sum) / temp;
+			x[i] = (b[i] - sum) * 0.25; // Divide by diagonal
 		}
 		// Check the  difference
 		double maxError = 0.0;

@@ -33,7 +33,7 @@ void JacobiCSR(int *row, int *col, double *nnz, double *b, double *x, int N) {
 				if (col[j] != i) {sum += nnz[j] * x[col[j]];}
 			}
 
-			newX[i] = (b[i] - sum) * 0.25;
+			newX[i] = (b[i] - sum) * 0.25; // Divide by diagonal
 		}
 
 		double maxError = 0.0;

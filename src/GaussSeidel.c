@@ -15,8 +15,8 @@ void gaussSeidelCSR(int *row, int *col, double *nnz, double *b, double *x, int N
 	
 
 	for (int iter = 0; iter < MAX_ITER; iter++) {
-		memcpy(oldX, x, N);
-		
+		memcpy(oldX, x, sizeof(double) * N);
+
 		// Computing the GS method
 		for (int i = 0; i < N; i++) {
 			double sum = 0.0;
@@ -38,7 +38,8 @@ void gaussSeidelCSR(int *row, int *col, double *nnz, double *b, double *x, int N
 		for (int i = 0; i < N; i++) {
 			maxError = max(maxError, fabs(x[i] - oldX[i]));
 		}
-	
+		
+		//printf("%f\n", maxError);	
 
 		if (maxError < TOL) {
 			printf("Gauss-Seidel converged in %d iterations.\n", iter+1);

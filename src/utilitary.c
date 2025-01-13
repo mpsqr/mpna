@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <math.h>
 
 double max (double a, double b) {
 	if (a > b) return a;
@@ -24,4 +24,21 @@ double compareVec(double *vec1, double *vec2, int N) {
 	}
 	
 	return sum;
+}
+
+double vecNorm(double *vec, int N) {
+	double sum = 0.0;
+	for (int i = 0; i < N; i++) {
+		sum += vec[i] * vec[i];
+	}
+	return sqrt(sum);
+}
+
+void residual(double *res, int *row, int *col, double *nnz, double *b, double *x, int N) {
+	for (int i = 0; i < N; i++) {
+		res[i] = b[i];
+		for (int j = row[i]; j < row[i+1]; j++) {
+			res[i] -= nnz[j] * x[col[j]];
+		}
+	}
 }

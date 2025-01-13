@@ -13,7 +13,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%.o, $(SRCS))
 all: $(TARGET)
 
 $(TARGET): $(OBJS) | $(BIN_DIR)
-	$(CC) $(OBJS) -o $< -o $@
+	$(CC) $(OBJS) -lm -o $< -o $@
 
 
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c | $(BIN_DIR)

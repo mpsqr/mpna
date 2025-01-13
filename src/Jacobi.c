@@ -2,8 +2,9 @@
 #include <string.h>
 #include <stdio.h>
 #include "utilitary.h"
+#include <math.h>
 
-#define MAX_ITER 1000
+#define MAX_ITER 10000
 #define TOL 1e-6
 
 
@@ -13,6 +14,7 @@ void JacobiCSR(int *row, int *col, double *nnz, double *b, double *x, int N) {
 
 	double *newX = (double *)malloc(sizeof(double) * N);
 	double *diag = (double *)malloc(sizeof(double) * N);
+	double *res = (double *)malloc(sizeof(double) * N);
 
 	memset(newX, 0.0, N);
 	
@@ -36,23 +38,20 @@ void JacobiCSR(int *row, int *col, double *nnz, double *b, double *x, int N) {
 			newX[i] = (b[i] - sum) * 0.25; // Divide by diagonal
 		}
 
-		double maxError = 0.0;
-		for (int i = 0; i < N; i++) {
-			maxError = max(maxError, fabs(newX[i] - x[i]));
-			x[i] = newX[i];
-		}
-
-		//printf("%f\n", maxError);
 		// Check for convergence
-		if (maxError < TOL) {
-			printf("Jacobi converged in %d iterations.\n", iter+1);
+		residual(res, row, col, nnz, b, newX, N);
+		double resNorm = vecNorm(res, N);
+		if (resNorm < TOL) {
+			printf("Jacobi converged in %d iterations.\n", iter + 1);
 			break;
 		}
+		
+		memcpy(x, newX, sizeof(double) * N);
 	}
 
 		
 
 	free(newX);
 	free(diag);
-
+	free(res);
 }

@@ -3,7 +3,7 @@
 #include <string.h>
 #include "utilitary.h"
 
-#define MAX_ITER 1000
+#define MAX_ITER 10000
 #define TOL 1e-6
 
 
@@ -12,6 +12,7 @@ void gaussSeidelCSR(int *row, int *col, double *nnz, double *b, double *x, int N
 	printf("Starting the Gauss-Seidel solver...\n");
 	
 	double *oldX = (double *)malloc(sizeof(double) * N);
+	double *res = (double *)malloc(sizeof(double) * N);
 	
 
 	for (int iter = 0; iter < MAX_ITER; iter++) {
@@ -29,21 +30,20 @@ void gaussSeidelCSR(int *row, int *col, double *nnz, double *b, double *x, int N
 				}
 			}
 		
-			x[i] = (b[i] - sum) * 0.25; // Divide by diagonal
+			x[i] = (b[i] - sum) * 0.25; // Divide by diagonal which is always 4
 		}
-		// Check the  difference
-		double maxError = 0.0;
-		for (int i = 0; i < N; i++) {
-			maxError = max(maxError, fabs(x[i] - oldX[i]));
-		}
+		// Check for convergence
+		residual(res, row, col, nnz, b, x, N);
+		double resNorm = vecNorm(res, N);
 		
 		//printf("%f\n", maxError);	
 
-		if (maxError < TOL) {
+		if (resNorm < TOL) {
 			printf("Gauss-Seidel converged in %d iterations.\n", iter+1);
 			break;
 		}
 	}
 
 	free(oldX);
+	free(res);
 }

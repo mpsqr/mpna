@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "utilitary.h"
 #include "sparseUtilitary.h"
@@ -35,6 +36,7 @@ int main(int argc, char **argv) {
 	if (argc > 2) {
 		srand(atoi(argv[2]));
 	}
+
 	
 	int totalElem = numOfElements(N); // Non zero elements
 
@@ -54,10 +56,10 @@ int main(int argc, char **argv) {
 
 	// x vector is initially set to 0
 	double *xJacobi = (double *)malloc(sizeof(double) * (N*N));
-	memset(xJacobi, 0.0, N*N);
+	memset(xJacobi, 0.0, sizeof(double) * ( N*N));
 	
 	double *xGS = (double *)malloc(sizeof(double) * (N*N));
-	memset(xGS, 0.0, N*N);
+	memset(xGS, 0.0, sizeof(double) * ( N*N));
 
 
 	// Solvers

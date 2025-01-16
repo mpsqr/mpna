@@ -32,13 +32,9 @@ void gaussSeidelCSR(int *row, int *col, double *nnz, double *b, double *x, int N
 		
 			x[i] = (b[i] - sum) * 0.25; // Divide by diagonal which is always 4
 		}
-		// Check for convergence
-		residual(res, row, col, nnz, b, x, N);
-		double resNorm = vecNorm(res, N);
-		
-		//printf("%f\n", maxError);	
 
-		if (resNorm < TOL) {
+		// Check for convergence	
+		if (residualNorm(res, row, col, nnz, b, x, N) < TOL) {
 			printf("Gauss-Seidel converged in %d iterations.\n", iter+1);
 			break;
 		}

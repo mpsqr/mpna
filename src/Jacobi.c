@@ -39,9 +39,7 @@ void JacobiCSR(int *row, int *col, double *nnz, double *b, double *x, int N) {
 		}
 
 		// Check for convergence
-		residual(res, row, col, nnz, b, newX, N);
-		double resNorm = vecNorm(res, N);
-		if (resNorm < TOL) {
+		if (residualNorm(res, row, col, nnz, b, newX, N) < TOL) {
 			printf("Jacobi converged in %d iterations.\n", iter + 1);
 			break;
 		}

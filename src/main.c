@@ -7,6 +7,7 @@
 #include "sparseUtilitary.h"
 #include "Jacobi.h"
 #include "GaussSeidel.h"
+#include "conjugateGradient.h"
 
 #define MAX 100
 	/*
@@ -56,11 +57,13 @@ int main(int argc, char **argv) {
 
 	// x vector is initially set to 0
 	double *xJacobi = (double *)malloc(sizeof(double) * (N*N));
-	memset(xJacobi, 0.0, sizeof(double) * ( N*N));
+	memset(xJacobi, 0.0, sizeof(double) * (N*N));
 	
 	double *xGS = (double *)malloc(sizeof(double) * (N*N));
-	memset(xGS, 0.0, sizeof(double) * ( N*N));
+	memset(xGS, 0.0, sizeof(double) * (N*N));
 
+	double *xCG = (double *)malloc(sizeof(double) * (N*N));
+	memset(xCG, 0.0, sizeof(double) * (N*N));
 
 	// Solvers
 	
@@ -71,6 +74,7 @@ int main(int argc, char **argv) {
 	gaussSeidelCSR(row, col, nnz, b, xGS, N*N);
 	//printVec(xGS, N*N);
 
+	CSR_GMRES(row, col, nnz, b, xCG, N*N);
 
 	//printf("The total difference between Jacobi and GS is %f.\n", compareVec(xJacobi, xGS, N*N));	
 
@@ -81,7 +85,8 @@ int main(int argc, char **argv) {
 	free(nnz);
 	free(b);
 	free(xJacobi);
-	free(xGS);	
+	free(xGS);
+	free(xCG);
 
 	return EXIT_SUCCESS;
 }

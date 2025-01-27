@@ -7,7 +7,7 @@
 #include "sparseUtilitary.h"
 #include "Jacobi.h"
 #include "GaussSeidel.h"
-#include "conjugateGradient.h"
+#include "GMRES_CSR.h"
 
 #define MAX 100
 	/*
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
 	gaussSeidelCSR(row, col, nnz, b, xGS, N*N);
 	//printVec(xGS, N*N);
 
-	CSR_GMRES(row, col, nnz, b, xCG, N*N);
+	//CSR_GMRES(row, col, nnz, b, xCG, N*N);
 
 	//printf("The total difference between Jacobi and GS is %f.\n", compareVec(xJacobi, xGS, N*N));	
 

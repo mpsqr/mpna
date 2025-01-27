@@ -8,6 +8,7 @@
 #include "Jacobi.h"
 #include "GaussSeidel.h"
 #include "GMRES_CSR.h"
+#include "conjugateGRadient.h"
 
 #define MAX 100
 	/*
@@ -73,6 +74,8 @@ int main(int argc, char **argv) {
 
 	gaussSeidelCSR(row, col, nnz, b, xGS, N*N);
 	//printVec(xGS, N*N);
+
+	conjugateGradientCSR(row, col, nnz, b, xCG, N*N);
 
 	//CSR_GMRES(row, col, nnz, b, xCG, N*N);
 

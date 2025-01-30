@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Iinclude
+CFLAGS = -O3 -funroll-loops -ffast-math -Iinclude
 
 SRC_DIR = src
 INC_DIR = include

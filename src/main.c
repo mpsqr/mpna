@@ -66,6 +66,9 @@ int main(int argc, char **argv) {
 	double *xCG = (double *)malloc(sizeof(double) * (N*N));
 	memset(xCG, 0.0, sizeof(double) * (N*N));
 
+	double *xGMRES = (double *)malloc(sizeof(double) * (N*N));
+	memset(xGMRES, 0.0, sizeof(double) * (N*N));
+
 	// Solvers
 	
 	JacobiCSR(row, col, nnz, b, xJacobi, N*N);
@@ -77,7 +80,7 @@ int main(int argc, char **argv) {
 
 	conjugateGradientCSR(row, col, nnz, b, xCG, N*N);
 
-	//CSR_GMRES(row, col, nnz, b, xCG, N*N);
+	CSR_GMRES(row, col, nnz, b, xGMRES, N*N);
 
 	//printf("The total difference between Jacobi and GS is %f.\n", compareVec(xJacobi, xGS, N*N));	
 
@@ -90,6 +93,7 @@ int main(int argc, char **argv) {
 	free(xJacobi);
 	free(xGS);
 	free(xCG);
+	free(xGMRES);
 
 	return EXIT_SUCCESS;
 }

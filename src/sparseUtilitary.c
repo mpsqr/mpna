@@ -1,7 +1,7 @@
 #include <stdio.h>
 // Computes the total number of elements in the matrix
 int numOfElements(int N) {
-	if (N == 1) return 1; // Only one element
+	//if (N == 1) return 1; // Only one element
 
 	int sum = 0;
 	sum += 12; // Corners

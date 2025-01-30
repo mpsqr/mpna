@@ -3,14 +3,13 @@
 #include <string.h>
 #include "utilitary.h"
 
-#define MAX_ITER 10
+#define MAX_ITER 10000
 #define TOL 1e-12
 
 void conjugateGradientCSR(int *row, int *col, double *nnz, double *b, double *x, int N) {
 	printf("Performing Conjugate Gradient...\n");
 
 	double *r = (double *)malloc(sizeof(double) * N); //rk
-
 	double *p = (double *)malloc(sizeof(double) * N); //p0
 
 	double *Ap = (double *)malloc(sizeof(double) * N);
@@ -19,9 +18,7 @@ void conjugateGradientCSR(int *row, int *col, double *nnz, double *b, double *x,
 	memcpy(p, r, sizeof(double) * N);
 
 
-
 	for (int k = 0; k < MAX_ITER; k++) {
-
 
 		double rkDot = dotProd(r, r, N); // rk.rk
 		dgemvCSR(row, col, nnz, p, Ap, N); // p.A
@@ -33,7 +30,7 @@ void conjugateGradientCSR(int *row, int *col, double *nnz, double *b, double *x,
 		}
 		
 		if (vecNorm(r, N) < TOL) {
-			printf("Conjugate Gradient converged in %d iterations.\n", k);
+			printf("Conjugate Gradient converged in %d iterations.\n", k+1);
 			break;
 		}
 
@@ -44,7 +41,6 @@ void conjugateGradientCSR(int *row, int *col, double *nnz, double *b, double *x,
 
 	}
 	
-
 
 	free(r);
 	free(p);

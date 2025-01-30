@@ -55,7 +55,7 @@ void CSR_GMRES(int *row, int *col, double *nnz, double *b, double *x, int N) {
 		for (int k = 0; k < N; k++) {
 			Q[Qk + k] *= invNorm; // Qk <- Qk/Hk,k-1
 		}
-
+		/*
 		// Check lower triangular part
 		printf("JKDHSIDFBQID\n");
 		for (int i = 1; i < iter; i++) {
@@ -64,7 +64,7 @@ void CSR_GMRES(int *row, int *col, double *nnz, double *b, double *x, int N) {
 				printf("%f\n", H[ind]);
 			}
 		}
-
+		*/
 
 		// NOT FINISHED DOESN'T WORK
 		// Least-squares solution
@@ -91,7 +91,7 @@ void CSR_GMRES(int *row, int *col, double *nnz, double *b, double *x, int N) {
 		double resNorm = residualNorm(r, row, col, nnz, b, x, N);
 		//printf("%f\n", resNorm);
 		if (resNorm < TOL) {
-			printf("GMRES converged in %d iterations.", iter + 1);
+			printf("GMRES converged in %d iterations.\n", iter + 1);
 			break;
 		}
 	}

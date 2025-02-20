@@ -21,7 +21,6 @@ void gaussSeidelCSR(int *row, int *col, double *nnz, double *b, double *x, int N
 		// Computing the GS method
 		for (int i = 0; i < N; i++) {
 			double sum = 0.0;
-			double temp = 0.0;
 
 			for (int j = row[i]; j < row[i+1]; j++) {
 				int colInd = col[j];

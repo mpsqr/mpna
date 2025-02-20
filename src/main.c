@@ -68,6 +68,7 @@ int main(int argc, char **argv) {
 
 	double *xGMRES = (double *)malloc(sizeof(double) * (N*N));
 	memset(xGMRES, 0.0, sizeof(double) * (N*N));
+	
 
 	// Solvers
 	

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 // Computes the total number of elements in the matrix
 int numOfElements(int N) {
 	//if (N == 1) return 1; // Only one element
@@ -64,4 +65,53 @@ void fillSparseMatrix(int *row, int *col, double *nnz, int N) {
 
 	printf("Sparse matrix filled.\n");
 
+}
+
+int fill_matrix_file(char *strpath, int *row, int *col, double *nnz) {
+
+    FILE *f = fopen(strpath, "r");
+    if (!f)
+    {
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
+    }
+    
+
+    int dim_x = 0;
+    int dim_y = 0;
+    int NNZ = 0;
+    fscanf(f, "%d %d %d\n", &dim_x, &dim_y, &NNZ);
+
+    //printf("%d %d %d\n", dim_x, dim_y, NNZ);
+
+    nnz = (double *)malloc(sizeof(double) * NNZ);
+    row = (int *)malloc(sizeof(int) * dim_x);
+    col = (int *)malloc(sizeof(int) * dim_y);
+
+    int irow = 0;
+    int icol = 0;
+
+    int old_row = 0;
+    int row_index = 0;
+    double value = 0;
+
+    for (int i = 0; i < NNZ; ++i)
+    {
+        fscanf(f, "%d %d %lf\n", &icol, &irow, &value);
+
+        irow = irow - 1;
+        icol = icol - 1;
+        printf("%d %d %lf\n", icol, irow, value);
+
+        if (irow != old_row)
+        {
+            row_index++;
+            row[row_index] = i;
+            old_row = irow;
+        }
+        col[i] = icol;
+        nnz[i] = value;
+    }
+
+    fclose(f);
 }

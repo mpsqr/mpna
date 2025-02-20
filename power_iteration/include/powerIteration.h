@@ -1,1 +1,1 @@
-void powerIteration(int *, int *, double *, double *, double *, int);
+void powerIteration(int *, int *, double *, double *, int);

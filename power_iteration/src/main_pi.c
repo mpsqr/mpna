@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 	b = (double *)malloc(sizeof(double) * nRows);
 	fillVectorFile("./data/largeVector.vec", b, nRows);
 
-
+	powerIteration(row, col, nnz, b, nRows);
 
 	free(row);
 	free(col);

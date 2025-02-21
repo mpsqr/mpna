@@ -3,7 +3,7 @@
 #include <string.h>
 #include "utilitary.h"
 
-#define MAX_ITER 10000
+#define MAX_ITER 1000
 #define TOL 1e-12
 
 void powerIteration(int *row, int *col, double *nnz, double *b, int N) {
@@ -17,7 +17,10 @@ void powerIteration(int *row, int *col, double *nnz, double *b, int N) {
 
 		dgemvCSR(row, col, nnz, b, bkp1, N);
 
+
+
 		invNorm = 1.0 / vecNorm(bkp1, N);
+
 
 		for (int j = 0; j < N; j++) {
 			b[j] = bkp1[j] * invNorm;

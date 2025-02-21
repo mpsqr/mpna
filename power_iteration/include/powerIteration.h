@@ -1,1 +1,0 @@
-void powerIteration(int *, int *, double *, double *, int);

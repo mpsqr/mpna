@@ -1,0 +1,1 @@
+void powerIterationMPI(int *, int *, double *, double *, int);

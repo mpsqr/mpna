@@ -3,8 +3,8 @@
 #include <string.h>
 #include "utilitary.h"
 
-#define MAX_ITER 1000
-#define TOL 1e-12
+#define MAX_ITER 100000
+#define TOL 1e-18
 
 void powerIteration(int *row, int *col, double *nnz, double *b, int N) {
 

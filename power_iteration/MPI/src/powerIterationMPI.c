@@ -5,8 +5,8 @@
 #include "utilitary.h"
 #include <mpi.h>
 
-#define MAX_ITER 1000
-#define TOL 1e-12
+#define MAX_ITER 10000
+#define TOL 1e-18
 
 void powerIterationMPI(int *row, int *col, double *nnz, double *b, double *res, int N, int Nlocal, int rank, int size) {
 

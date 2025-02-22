@@ -10,7 +10,6 @@
 
 void powerIterationMPI(int *row, int *col, double *nnz, double *b, double *res, int N, int Nlocal, int rank, int size) {
 
-	double *prev = (double *)malloc(sizeof(double) * N);
 	double invNorm = 0.0;
 
 	int step = N / size;
@@ -18,9 +17,10 @@ void powerIterationMPI(int *row, int *col, double *nnz, double *b, double *res, 
 	MPI_Request req;
 	MPI_Status sta;
 
-	for (int i = 0; i < MAX_ITER; i++) {
+	double start = MPI_Wtime();
 
-		memcpy(prev, b, sizeof(double) * N);
+	for (int i = 0; i < MAX_ITER; i++) {
+		double conv = 0.0; // Convergence
 
 		dgemvCSR(row, col, nnz, b, &res[rank * step], Nlocal);
 
@@ -44,15 +44,15 @@ void powerIterationMPI(int *row, int *col, double *nnz, double *b, double *res, 
 		invNorm = 1.0 / vecNorm(res, N);
 
 		for (int j = 0; j < N; j++) {
+			double temp = b[j];
 			b[j] = res[j] * invNorm;
-			prev[j] -= b[j];
+			conv += (temp - b[j]) * (temp - b[j]);
 		}
 
-		if (vecNorm(prev, N) < TOL) {
-			printf("RANK %d: Power Iteration converged after %d iterations.\n", rank, i + 1);
+		if (sqrt(conv) < TOL) {
+			double end = MPI_Wtime();
+			printf("RANK %d: Power Iteration converged after %d iterations (%lf s).\n", rank, i + 1, end-start);
 			break;
 		}
 	}
-
-	free(prev);
 }

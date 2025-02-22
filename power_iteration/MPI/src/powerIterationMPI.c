@@ -6,7 +6,7 @@
 #include <mpi.h>
 
 #define MAX_ITER 10000
-#define TOL 1e-18
+#define TOL 1e-12
 
 void powerIterationMPI(int *row, int *col, double *nnz, double *b, double *res, int N, int Nlocal, int rank, int size) {
 

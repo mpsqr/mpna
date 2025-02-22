@@ -32,6 +32,8 @@ void powerIteration(int *row, int *col, double *nnz, double *b, int N) {
 
 			conv += (temp - b[j]) * (temp - b[j]);
 		}
+
+		//printf("%lf\n", conv);
 		
 		if (sqrt(conv) < TOL) {
 			float endTime = (float)clock()/CLOCKS_PER_SEC;

@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 	double *nnz, *b;
 
 
-	FILE *file = fopen("./data/plbuckle_G.mtx", "r");
+	FILE *file = fopen("./data/plbuckle.mtx", "r");
     if (!file) {
         perror("Error opening file");
         return EXIT_FAILURE;

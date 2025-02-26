@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 	double *nnz, *b;
 
 
-    FILE *file = fopen("./data/bcsstk03.mtx", "r");
+    FILE *file = fopen("./data/bcsstk13.mtx", "r");
     if (!file) {
         perror("Error opening file");
         return EXIT_FAILURE;
